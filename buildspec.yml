@@ -3,7 +3,6 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm install --silent --no-progress npm -g
       - npm install --silent --no-progress serverless -g
   pre_build:
     commands:
