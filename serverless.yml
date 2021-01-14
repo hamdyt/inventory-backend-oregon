@@ -12,7 +12,7 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: dev
+  stage: prod
   region: us-west-2
   environment:
     DB_HOST: ${env:DB_HOST}
