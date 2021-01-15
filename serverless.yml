@@ -22,6 +22,11 @@ provider:
     DB_PORT: ${env:DB_PORT}
     APP_DOMAIN: ${env:APP_DOMAIN}
   lambdaHashingVersion: 20201221
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'iam:CreateRole'
+      Resource: '*'
   apiGateway:
     shouldStartNameWithService: true
 
