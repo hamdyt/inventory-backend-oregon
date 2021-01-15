@@ -1,1 +1,1 @@
-//Tetsing inventory Ci/CD sweet success
+//second test for IAM Lambda execution role
