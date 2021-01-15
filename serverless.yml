@@ -25,7 +25,7 @@ provider:
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
-        - 'iam:CreateRole'
+        - '*'
       Resource: '*'
   apiGateway:
     shouldStartNameWithService: true
