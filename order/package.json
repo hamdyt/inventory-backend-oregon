@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "offline": "sls offline",
+    "deploy": "sls deploy",
+    "deploy:local": "sls deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "serverless": "^2.16.1",
+    "serverless-bundle": "^4.1.0",
+    "serverless-dotenv-plugin": "^3.1.0",
+    "serverless-offline": "^6.8.0"
+  }
+}

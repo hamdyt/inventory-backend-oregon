@@ -3,10 +3,13 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm install --silent --no-progress serverless -g
-  pre_build:
-    commands:
-      - npm install --no-progress --silent
+      - cd order && npm install --no-progress --slient
+      - cd ../
+      - cd product && npm install --no-progress --slient
+      - cd ../
   post_build:
     commands:
-      - serverless deploy
+      - cd order && npm run deploy
+      - cd ../
+      - cd product && npm run deploy
+      - cd ../

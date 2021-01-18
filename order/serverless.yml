@@ -1,0 +1,165 @@
+service: inventoryapp-api
+
+package:
+  individually: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: order
+  region: us-east-2
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_NAME: ${env:DB_NAME}
+    DB_USER: ${env:DB_USER}
+    DB_PASS: ${env:DB_PASS}
+    DB_PORT: ${env:DB_PORT}
+    APP_DOMAIN: ${env:APP_DOMAIN}
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    shouldStartNameWithService: true
+
+custom:
+  serverless-offline:
+    httpPort: 8000
+
+functions:
+  read-player:
+    handler: api/player/read.handler
+    package:
+      include:
+        - api/player/read.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: player
+          method: get
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Cookie
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+  read-player-order:
+    handler: api/player/read-order.handler
+    package:
+      include:
+        - api/player/read-order.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: player/{id}/order
+          method: get
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+  create-order:
+    handler: api/order/create.handler
+    package:
+      include:
+        - api/order/create.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: order
+          method: post
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+  read-order:
+    handler: api/order/read.handler
+    package:
+      include:
+        - api/order/read.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: order
+          method: get
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+  read-order-id:
+    handler: api/order/read-id.handler
+    package:
+      include:
+        - api/order/read-id.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: order/{id}
+          method: get
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+  update-order:
+    handler: api/order/update.handler
+    package:
+      include:
+        - api/order/update.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: order
+          method: put
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true

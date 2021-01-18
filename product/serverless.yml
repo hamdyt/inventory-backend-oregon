@@ -1,0 +1,54 @@
+service: inventoryapp-api
+
+package:
+  individually: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: product
+  region: us-east-2
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_NAME: ${env:DB_NAME}
+    DB_USER: ${env:DB_USER}
+    DB_PASS: ${env:DB_PASS}
+    DB_PORT: ${env:DB_PORT}
+    APP_DOMAIN: ${env:APP_DOMAIN}
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    shouldStartNameWithService: true
+
+custom:
+  serverless-offline:
+    httpPort: 8000
+
+functions:
+  read-product:
+    handler: api/product/read.handler
+    package:
+      include:
+        - api/product/read.js
+      exclude:
+        - api/**
+    events:
+      - http:
+          path: product
+          method: get
+          authorizer: ${env:USER_POOL_ARN}
+          cors:
+            origin: ${env:APP_DOMAIN}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
