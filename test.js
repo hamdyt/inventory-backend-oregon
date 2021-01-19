@@ -1,1 +1,1 @@
-// Automation test for AB3 - test node.js updates
+// Automation test for AB3 - fixing Code Pipeline
