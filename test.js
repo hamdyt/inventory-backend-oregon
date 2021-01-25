@@ -1,1 +1,1 @@
-//Automation test script - AB3 -demo0125
+//Automation test script - AB3 -demo
